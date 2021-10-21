@@ -69,6 +69,16 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/logout', (req, res) => {
+  if(req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(400).end();
+  }
+})
+
 router.post('/login', (req, res) => {
   //expects email and password
   User.findOne({
